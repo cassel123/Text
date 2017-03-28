@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="Text" default="test" basedir=".">
+<property name="src" value="src"/>
+<property name="dest" value="classes"/>
+<property name="helloant_jar" value="helloant.jar"/>
+<target name="init">
+   <mkdir dir="${dest}"/>
+</target>
+<target name="compile" depends="init">
+   <javac srcdir="${src}" destdir="${dest}" includeantruntime="on"/>
+</target>
+<target name="build" depends="compile">
+   <jar jarfile="${helloant_jar}" basedir="${dest}"/>
+</target>
+<target name="test" depends="build">
+   <java classname="com.test.Main" classpath="${helloant_jar}"/>
+</target>
+<target name="clean">
+   <delete dir="${dest}" />
+   <delete file="${helloant_jar}" />
+</target>
+<target name="rerun" depends="clean,test">
+   <ant target="clean" />
+   <ant target="test" />
+</target>
+</project>
